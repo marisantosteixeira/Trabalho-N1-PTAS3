@@ -2,13 +2,13 @@ const { Sequelize } = require('sequelize');
 const config = require('../config/config')
 require('dotenv').config();
 
-const sequelize = new Sequelize(config.development);
+const sequelize = new Sequelize( config.development   );
 
 try {
   sequelize.authenticate();
-  console.log('usuario autenticado ');
+  console.log('User autenticado');
 } catch (error) {
-  console.error('usuario não autenticado ', error);
+  console.error('User não autenticado', error);
 }
 
 module.exports = { Sequelize, sequelize };
