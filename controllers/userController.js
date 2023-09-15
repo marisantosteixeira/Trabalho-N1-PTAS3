@@ -44,11 +44,13 @@ const deleteUser = async (req, res) => {
 }
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    const {       } = req.body;
+    const {nome, email, senha  } = req.body;
     try {
         await User.update(
             {
-               
+               nome:nome,
+               email:email,
+               senha:senha
             },
             {
                 where: {
@@ -56,10 +58,10 @@ const updateUser = async (req, res) => {
                 }
             }
         ).then(() => {
-            res.json("            ");
+            res.json("  Usuario foi atualizado com sucesso");
         })
     } catch (error) {
-        res.status(404).json("                !");
+        res.status(404).json("Erro ao atualizar usuario!");
     }
 }
 const authenticatedUser = async (req, res) => {
