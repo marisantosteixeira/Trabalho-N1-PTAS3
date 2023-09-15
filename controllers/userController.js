@@ -65,27 +65,31 @@ const updateUser = async (req, res) => {
     }
 }
 const authenticatedUser = async (req, res) => {
-    const {       } = req.body;
+    const { nome, email, senha      } = req.body;
     try {
         const isUserAuthenticated = await User.findOne({
             where: {
-                
+                nome:nome,
+                email:email,
+                senha:senha
             }
         })
         const token = jwt.sign({
-            name: 
-            email: 
+            nome: isUserAuthenticated.nome,
+            email: isUserAuthenticated.email,
+            senha: isUserAuthenticated.senha
         },
             secret.secret, {
             expiresIn: 86400,
         })
         return res.json({
-            name: 
+            nome: isUserAuthenticated.nome,
             email: isUserAuthenticated.email,
+            senha: isUserAuthenticated.senha,
             token: token
         });
     } catch (error) {
-        return res.json("");
+        return res.json("Erro para autenticar usuario");
     }
 }
 
