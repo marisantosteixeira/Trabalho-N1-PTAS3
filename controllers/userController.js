@@ -18,11 +18,11 @@ const createUser = async (req, res) => {
         console.log(`Deu erro na criação do usuario : ${erro}`);
     })
 }
-/*
+
 const findUsers = async (req, res) => {
-    const     = await User.findAll();
+    const  users    = await User.findAll();
     try {
-        res.json(    );
+        res.json(  users  );
     } catch (error) {
         res.status(404).json("Ocorreu um erro na busca!");
     };
@@ -89,4 +89,3 @@ const authenticatedUser = async (req, res) => {
 
 
 module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
-*/
