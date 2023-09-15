@@ -1,22 +1,22 @@
 const connection = require('../config/connection');
 
-const User = connection.define('users',{
+const User = connection.sequelize.define('users',{
     id: {
-        type: connection.INTEGER,
+        type: connection.Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     name: {
-        type: connection.STRING,
+        type: connection.Sequelize.INTEGER,
         allowNull: false
     },
     password:{
-        type: connection.STRING,
+        type: connection.Sequelize.INTEGER,
         allowNull:false
     },
     email:{
-        type: connection.STRING,
+        type: connection.Sequelize.INTEGER,
         allowNull:false,
         unique:true
     } 
