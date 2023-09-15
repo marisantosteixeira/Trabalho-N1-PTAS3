@@ -10,11 +10,11 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      nome: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      password: {
+      senha: {
         type: Sequelize.STRING,
         allowNull: false
       },
