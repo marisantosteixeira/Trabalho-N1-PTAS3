@@ -6,7 +6,7 @@ const sequelize = new Sequelize( config.development   );
 
 try {
   sequelize.authenticate();
-  console.log('User autenticado');
+  console.log('User autenticado com sucesso!');
 } catch (error) {
   console.error('User não autenticado', error);
 }

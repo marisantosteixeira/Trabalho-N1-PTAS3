@@ -9,11 +9,11 @@ const createUser = async (req, res) => {
        email:email,
        password:password
     }).then(() => {
-        res.json('Usuario criado ');
-        console.log('Usuario criado');
+        res.json('Usuário cadastrado com sucesso ');
+        console.log('Usuário cadastrado com sucesso ');
     }).catch((erro) => {
-        res.json(' Erro ao criar usuario ');
-        console.log(` Erro ao criar usuario  : ${erro}`);
+        res.json(' Erro ao cadastrar usuario ');
+        console.log(` Erro ao cadastrar usuario  : ${erro}`);
     })
 }
 
@@ -35,10 +35,10 @@ const deleteUser = async (req, res) => {
                 id:id
             }
         }).then(() => {
-            res.json(" Usuario deletado");
+            res.json(" Usuario deletado com sucesso");
         })
     } catch (error) {
-        res.status(404).json("Erro ao deletar");
+        res.status(404).json("Erro ao deletar usuário");
     }
 }
 
@@ -58,10 +58,10 @@ const updateUser = async (req, res) => {
                 }
             }
         ).then(() => {
-            res.json("Usuario atualizado");
+            res.json("Usuário atualizado com sucesso");
         })
     } catch (error) {
-        res.status(404).json("Erro ao atualizar!");
+        res.status(404).json("Erro ao atualizar usuário!");
     }
 }
 
@@ -70,13 +70,11 @@ const authenticatedUser = async (req, res) => {
     try {
         const isUserAuthenticated = await User.findOne({
             where: {
-                name:name,
                 email:email,
                 password:password
             }
         })
         const token = jwt.sign({
-            name:isUserAuthenticated.name,
             email:isUserAuthenticated.email,
             password:isUserAuthenticated.password
         },
@@ -84,7 +82,6 @@ const authenticatedUser = async (req, res) => {
             expiresIn: 86400,
         })
         return res.json({
-            name: isUserAuthenticated.name,
             email: isUserAuthenticated.email,
             password:isUserAuthenticated.password,
             token: token
