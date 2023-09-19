@@ -66,17 +66,16 @@ const updateUser = async (req, res) => {
 }
 
 const authenticatedUser = async (req, res) => {
-    const {name,email,password} = req.body;
+    const {email,password} = req.body;
     try {
         const isUserAuthenticated = await User.findOne({
             where: {
-                name:name,
+              
                 email:email,
                 password:password
             }
         })
         const token = jwt.sign({
-            name:isUserAuthenticated.name,
             email:isUserAuthenticated.email,
             password:isUserAuthenticated.password
         },
@@ -84,7 +83,6 @@ const authenticatedUser = async (req, res) => {
             expiresIn: 86400,
         })
         return res.json({
-            name:isUserAuthenticated.name,
             email: isUserAuthenticated.email,
             password:isUserAuthenticated.password,
             token: token
