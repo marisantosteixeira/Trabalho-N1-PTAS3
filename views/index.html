@@ -4,27 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel=“stylesheet” type=“text/css” href=“style.css”>
     <title>API - Users</title>
 </head>
 
 <body>
     <h1>API - USER</h1>
 <div class="explicacao"> 
+
     <h1>http://localhost:3003/user</h1>
-    <p>post- cadastra usuario</p>
+    <p>O metodo POST é usado quando o cliente deseja enviar dados para processamento ao servidor, 
+    os dados enviados com o POST estão sendo armazenados no corpo da requisição HTTP.
     <br>
+    Geralmente usamos esse método para criar algo no servidor, como por exemplo o link acima, 
+    que quando você insere dados no thunder client e clica no SEND aparace a mensagem "Usario cadastrado com sucesso"
+    </p>
+</div>
+
+<div class="explicacao2"> 
+   <h1>http://localhost:3003/users</h1>
+    <p>O medoto GET É usado para obter algum recurso hospedado no servidor, então ele pega usuarios cadastrados e lista eles.
     <br>
-    <h1>http://localhost:3003/users</h1>
-    <p>get - pega usuarios cadastrados e lista eles</p>
-    <br>
-    <br>
-    <h1>http://localhost:3003/user/authenticated</h1>
-    <p>post- autenticação do usuario, pede email e senha e mostra um token que no site da jwt mostra o email e senha</p>
-    <br>
-    <br>
+    Quando colocamos o link acima na URL no thunder client ele busca os usuários que foram cadastrados.
+    </p>
 </div>
 
 
-</body>
+<div class="explicacao3"> 
+    <h1>http:
+    //localhost:3003/user/authenticated</h1>
+    <p>Nesse caso a gente usa o metodo POST para fazer a autenticação do usuário, para isso a gente entra vc entra na pasta config e coloca alguma chave dentro do "serect",
+   em seguida vamos no body do thunder client e inserimos um email e
+senha que são nexessários para entrar em qualquer site/aplicativo como o Facebook, após inserir um email e senha vc clica em SEND que vai mostrar os usuários e 
+com isso gera um token, que quando vc vai no site da JWT e 
+cola esse token la mostra os dados:email e senha, que vc autenticou  </p>
 
+</div>
+</body>
 </html>
