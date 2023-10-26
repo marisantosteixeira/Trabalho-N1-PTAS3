@@ -1,10 +1,13 @@
 const User = require('../models/User');
 const secret = require('../config/auth.json');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 
 
 const createUser = async (req, res) => {
     const { name, email, password } = req.body;
+    const passwordCrypto = await bcrypt.hash(password, 10);
+    
     await User.create({
         name: name,
         email: email,
@@ -70,16 +73,17 @@ const updateUser = async (req, res) => {
             const isUserAuthenticated = await User.findOne({
                 where: {
                     email: email,
-                    password: password
                 }
-            })
-            const token = jwt.sign({
-                name: isUserAuthenticated.name,
-                email: isUserAuthenticated.email
-            },
+            });
+            if(isUserAuthenticated){
+                return res.status(401).json ("usuario nao encontrado");
+            }
+            const isPassswordValidate = await bcrypt.compare(password, isUserAuthenticated.password);
+
+            const token = jwt.sign({ id: email }, 
                 secret.secret, {
                 expiresIn: 86400,
-            })
+            });
             return res.json({
                 name: isUserAuthenticated.name,
                 email: isUserAuthenticated.email,
