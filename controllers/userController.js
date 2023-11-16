@@ -43,9 +43,9 @@ const deleteUser = async (req, res) => {
         res.status(404).json("Erro ao deletar usuário.");
     }
 }
-c
+
 const updateUser = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id)
     const { name, email, password } = req.body;
     try {
         await User.update(
@@ -83,12 +83,13 @@ const updateUser = async (req, res) => {
             const token = jwt.sign({ id: email }, 
                 secret.secret, {
                 expiresIn: 86400,
-            });
-            return res.json({
-                name: isUserAuthenticated.name,
-                email: isUserAuthenticated.email,
-                token: token
-            });
+                });
+                res.cookie('token', token, { httpOnly: true }).json({
+                    name: isUserAuthenticated.name,
+                    email: isUserAuthenticated.email,
+                    token: token
+
+                });
         } catch (error) {
         return res.json("Erro ao autenticar usuário");
     }
