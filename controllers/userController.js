@@ -1,17 +1,18 @@
 const User = require('../models/User');
 const secret = require('../config/auth.json');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 
 const createUser = async (req, res) => {
     const { name, email, password } = req.body;
-    const passwordCrypto = await bcrypt.hash(password, 10);
+    const passwordCrypto = await bcrypt.hash(password, 10 );
     
     await User.create({
         name: name,
         email: email,
-        password: password
+        password: passwordCrypto
     }).then(() => {
         res.json('Usuário cadastrado com sucesso');
         console.log('Usuário cadastrado com sucesso');
@@ -47,12 +48,14 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id)
     const { name, email, password } = req.body;
+    const passwordCrypto = await bcrypt.hash(password, 10);
+
     try {
         await User.update(
             {
                 name: name,
                 email: email,
-                password: password
+                password: passwordCrypto
             },
             {
                 where: {
@@ -72,16 +75,19 @@ const updateUser = async (req, res) => {
         try {
             const isUserAuthenticated = await User.findOne({
                 where: {
-                    email: email,
+                    email: email
                 }
             });
-            if(isUserAuthenticated){
+            if(!isUserAuthenticated){
                 return res.status(401).json ("usuario nao encontrado");
             }
             const isPassswordValidate = await bcrypt.compare(password, isUserAuthenticated.password);
+            if(isPassswordValidate === false){
+                return res.status(401).json ("senha não correspondida");
+            }
 
-            const token = jwt.sign({ id: email }, 
-                secret.secret, {
+            const token = jwt.sign({ email: email }, 
+                process.env.SECRET, {
                 expiresIn: 86400,
                 });
                 res.cookie('token', token, { httpOnly: true }).json({
